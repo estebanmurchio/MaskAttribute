@@ -24,13 +24,6 @@ namespace Infrastructure.Attributes
                 "}});" +
             "</script>";
 
-        private const string AutoNumericScriptText =
-            "<script data-eval='true' type='text/javascript'>" +
-                "jQuery(document).ready(function () {{" +
-                    "jQuery('{0}').autoNumeric('init', {1});" +
-                "}});" +
-            "</script>";
-
         public const string TemplateHint = "_maskedInput";
 
         internal HttpContextBase Context
@@ -45,9 +38,7 @@ namespace Infrastructure.Attributes
             metadata.TemplateHint = TemplateHint;
             metadata.AdditionalValues[TemplateHint] = Selector;
 
-            var s = string.Format(Mask.StartsWith("{")
-                ? AutoNumericScriptText
-                : ScriptText, Selector, Mask);
+            var s = string.Format(ScriptText, Selector, Mask);
 
             if (!list.Contains(s))
                 list.Add(s);
